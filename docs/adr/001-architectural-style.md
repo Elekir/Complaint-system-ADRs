@@ -52,7 +52,8 @@ transition to chatbot integration in the future, as well as multi-tenant require
 - Provides a clear structure for future feature additions
 - best approacht for the CMS System as it provides the requirements of multi roles
 - Supports independent scaling of tiers
-**Negative:**
+
+ **Negative:**
 - more setup complexity than monolithic architecture
 - demands that layering principles be strictly followed.
 

@@ -1,18 +1,21 @@
-## ADR-001: Choice of Technology
+## ADR-002: Choice of Technology Stack
 
 ## Status
 Accepted – 27/10/202
 
 ## Context and Problem Statement
-The Complaint Management System (CMS) will be a web-based solution intended for banks and telecom businesses. 
-It should support accessibility features such as screen readers and dark mode, be compatible with future chatbot 
-integration. A suitable technological measure is necessary to make the system easy to use, maintainable, accessible and realistic delivery within the project timeframe.
+The Complaint Management System (CMS) is a web-based application intended for banks and telecom organisations.
+The system must support accessibility features such as screen readers and dark mode, role-based access control,
+and future extensibility such as chatbot integration.
+
+A suitable technology stack is required to ensure the system is maintainable, scalable, secure, and achievable
+within the project timeframe, while aligning with the selected three-tier architecture.
+
 
 ## Considered Options
 1. React (JavaScript Framework)
 2. Node.js (JavaScript Runtime for Backend)
-3. PHP with MySQL (XAMPP Usage)
-
+3. Laravel (PHP Framework) with MySQL
 ## Pros and Cons of the Options
 
 
@@ -23,7 +26,6 @@ integration. A suitable technological measure is necessary to make the system e
 -  Functions effectively with scalable systems and APIs
 
 **Cons:**
--  A more difficult learning curve and a complicated building environment
 -  Not recommended for short deadlines and inexperienced
 -  involves extra backend configuration
 
@@ -40,33 +42,39 @@ integration. A suitable technological measure is necessary to make the system e
 - Setup and integration with databases, frameworks, etc adds complexity
 - limited time to learn it in time for the project of CMS
 
-### PHP with MySQL (XAMPP usage):
+### Laravel (PHP Framework) with MySQL:
 **Pros:**
--  Easy to use and well supported for small-to-medium-sized web applications
--  XAMPP makes local hosting and deployment simple.
--  MySQL integration is simple and reliable
--  familiar with it as there will not be large learning curve because of time limit
--  PHP is compatible with HTML, CSS, and JS to create an accessible front-end design.
--  easier to understand and use for testing and prototypes
+- Laravel provides a structured MVC framework, improving maintainability and code organisation
+- Built-in support for authentication, routing, validation, and security
+- MySQL integration is reliable and well-supported
+- XAMPP/Laragon enables simple local development and testing
+- Familiar technology, reducing learning overhead within project constraints
+- Supports accessibility-compliant front-end development using HTML, CSS, and JavaScript
+
 
   
 **Cons:**
--  Less modern than JavaScript-based stacks
--  Limited dynamic UI capabilities compared to React
-
+- Less modern front-end experience compared to React-based stacks
+- Some features require manual configuration compared to full JavaScript ecosystems
+-  A learning curve and a complicated building environment
 
 ## Decision Outcome
-The final technology set up chosen is  PHP with MySQL (XAMPP system).
-This option ensures that the CMS can be developed, tested, and presented 
-within the project timeline by providing a reasonable balance of functionality,
-familiarity, and simplicity.
+The final technology stack selected for the CMS is Laravel (PHP Framework) with MySQL.
+This choice provides a balance between structured development, scalability, and development efficiency,
+while remaining achievable within the project timeframe.
+
+Laravel supports the three-tier architectural design through clear separation of presentation,
+business logic, and data access layers. It also provides built-in mechanisms for authentication,
+role-based access control, and validation, which align with the CMS requirements.
+
 
 Selected technology Components:
 
-- Frontend: HTML, CSS, JavaScript (WCAG-compliant and responsive)
-- Backend: PHP
-- Database: MySQL (via XAMPP local server)
-- Version Control: GitHub
+Frontend: HTML, CSS, JavaScript (WCAG-compliant and responsive)
+Backend: Laravel (PHP Framework)
+Database: MySQL
+Local Development Environment: Laragon
+Version Control: GitHub
   
 Without making the setup too complicated, this method enables essential system functions
 including feedback submission, complaint registration, and accessibility features.
@@ -77,13 +85,13 @@ including feedback submission, complaint registration, and accessibility feature
 - Ideal for proof-of-concept validation
 - Integrates smoothly with accessibility tools like screen readers
 
-**Negative:*
-- Manual API Integration:
+**Negative:**
+- Some integrations (e.g. future chatbot services) may require additional configuration
+- Front-end interactivity is more limited compared to JavaScript-heavy frameworks
 
 ## Confirmation
 This decision was confirmed through project planning discussions and Feedback from the module tutor 
 
-supported using PHP/MySQL due to the achievable learning curve
 
 ## More Information
 

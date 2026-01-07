@@ -1,86 +1,96 @@
-## ADR-004: Choice of Authentication
+# ADR-004: Choice of Authentication Mechanism
 
 ## Status
-Draft – 03/11/2025
-
+Accepted – 03/11/2025
 
 ## Context and Problem Statement
-Access control and secure authentication for various user roles are necessary for the Complaint Management System (CMS).
-While complying to standard security procedures like input validation, secure session handling, and safe error reporting,
-the authentication system must be easy enough to deploy within the project timeline.
+The Complaint Management System (CMS) requires a secure and reliable authentication mechanism to support multiple user roles,
+including Consumers, Help Desk Agents, Support Persons, Managers, and System Administrators.
 
-Role-based functionality, such as the ability for customers to file complaints, agents to allocate support persons,
-and administrators to onboard organisations, must also be supported by the selected solution.
+The authentication solution must enforce role-based access control (RBAC), protect user credentials and sessions,
+and integrate seamlessly with the Laravel-based backend. In addition, the solution must be achievable within the
+project timeline while adhering to standard security practices such as secure session handling, password hashing,
+input validation, and controlled error reporting.
+
+Given that the CMS is a multi-tenant system managing sensitive customer and organisational data,
+selecting an appropriate authentication mechanism is critical to ensure security, maintainability,
+and long-term scalability.
 
 ## Considered Options
-1. Laravel’s Built-In Session Authentication
-2. Manual PHP Session-Based Login (Custom Built)
-3. Cryptography Approaches
+1. Laravel Built-In Session Authentication (Laravel Breeze)
+2. Manual PHP Session-Based Authentication (Custom Built)
+3. Cryptography-Only Authentication Mechanisms
 
 ## Pros and Cons of the Options
 
+### Laravel Built-In Session Authentication (Laravel Breeze)
 
-### Laravel Built-In Authentication:
 **Pros:**
--  Quick to execute with integrated scaffolding
--  Good documentation and community assistance
--  Secure by default
--  contains role-based access control middleware which aline with the CMS
+- Secure by default and follows Laravel security best practices
+- Provides ready-made authentication scaffolding
+- Uses secure password hashing and session management
+- Integrates seamlessly with Laravel middleware and policies
+- Supports role-based access control aligned with CMS requirements
+- Reduces development time and implementation risk
 
 **Cons:**
--  needs to become familiar with certain new Laravel features.
+- Requires familiarity with Laravel authentication workflows
+- Less flexible than a fully custom-built authentication system
 
-### Custom PHP Session-Based Authentication:
+---
+
+### Manual PHP Session-Based Authentication
+
 **Pros:**
--  Very easy to understand for a beginner
--  there is no need for learning curv
--  Maximum control over login flow
-
+- Full control over authentication logic
+- Simple conceptual model for beginners
 
 **Cons:**
--  Security features must be manually implemented.
--  Absence of integrated role management
--  Vulnerabilities are more easily introduced by mistake.
+- Security mechanisms must be implemented manually
+- High risk of introducing vulnerabilities
+- No built-in support for role-based access control
+- Increased development and testing effort
 
-### Encryption:
+---
+
+### Cryptography-Only Authentication Approaches
+
 **Pros:**
--  offers safe password storing
-  
-**Cons:**
--  Not a complete solution for authentication
--  increases complexity without resolving access control issues
--  Not necessary for this project’s scope
+- Provides secure password storage mechanisms
 
+**Cons:**
+- Does not provide a complete authentication solution
+- Does not address session management or access control
+- Introduces unnecessary complexity for the scope of this project
 
 ## Decision Outcome
-Laravel’s Built-In Session Authentication is selected.
+Laravel Built-In Session Authentication using Laravel Breeze was selected as the authentication mechanism for the CMS.
 
-Justification:
-- Provides the most secure login strategy with minimal complexity
-- Perfectly supports multi-role access through Laravel guards/middleware
-- Quicker development and lower implementation risk
-- avoids needless complication like cryptographic access mechanisms and token management.
+## Justification
+This solution provides a secure, scalable, and well-documented authentication mechanism that aligns directly with
+the chosen Laravel framework and three-tier architecture.
 
-This approach maintains a reasonable coding effort while guaranteeing safe authentication.
+Laravel Breeze ensures secure session-based authentication, enables clean implementation of role-based access control
+through middleware, and minimises development effort while maximising security. This approach avoids unnecessary
+complexity such as custom cryptographic workflows or token-based authentication, which are not required for the
+current scope of the CMS.
 
 ## Consequences
+
 **Positive:**
-- Secure password hashing
-- Session management that is automatic
-- Easy implementation of role-based access control (RBAC)
-- minimises security flaws when compared to manually writing authentication
+- Secure password hashing and automatic session management
+- Consistent enforcement of role-based access control (RBAC)
+- Reduced likelihood of security vulnerabilities
+- Faster development and easier maintenance
 
 **Negative:**
-- takes some effort to comprehend Laravel's authentication method
-- Certain customisations could call for a better understanding of Laravel
-- Depends on Laravel architecture, making migration to pure PHP harder later
-
+- Requires understanding of Laravel authentication conventions
+- Tight coupling with Laravel may increase migration effort in the future
 
 ## Confirmation
-After evaluating development time, security expectations, and the Proof of Concept scope,
-this choice was verified as appropriate and validated per module security criteria.
+This decision was validated through architectural planning, alignment with project security requirements,
+and review against module security principles and best practices.
 
 ## More Information
-
-- Lecture: Security-Lecture, Week 6
-- Laravel Documentation: Authentication 
+- Module Lecture: Security, Week 6
+- Laravel Documentation: Authentication and Laravel Breeze
